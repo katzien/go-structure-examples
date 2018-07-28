@@ -6,8 +6,8 @@ import (
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
-	"github.com/katzien/structure-examples/layered/models"
-	"github.com/katzien/structure-examples/layered/handlers"
+	"github.com/katzien/go-structure-examples/layered/models"
+	"github.com/katzien/go-structure-examples/layered/handlers"
 )
 
 var router *httprouter.Router

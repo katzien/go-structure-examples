@@ -6,8 +6,8 @@ import (
 	"strconv"
 
 	"github.com/nanobox-io/golang-scribble"
-	"github.com/katzien/structure-examples/modular/beers"
-	"github.com/katzien/structure-examples/modular/reviews"
+	"github.com/katzien/go-structure-examples/modular/beers"
+	"github.com/katzien/go-structure-examples/modular/reviews"
 )
 
 const (

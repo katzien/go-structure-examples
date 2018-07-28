@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 
-	"github.com/katzien/structure-examples/domain-driven/storage"
-	"github.com/katzien/structure-examples/domain-driven/adding"
-	"github.com/katzien/structure-examples/domain-driven/reviewing"
+	"github.com/katzien/go-structure-examples/domain-driven/storage"
+	"github.com/katzien/go-structure-examples/domain-driven/adding"
+	"github.com/katzien/go-structure-examples/domain-driven/reviewing"
 )
 
 func main() {

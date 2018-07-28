@@ -1,8 +1,8 @@
 package database
 
 import (
-	"github.com/katzien/structure-examples/modular/beers"
-	"github.com/katzien/structure-examples/modular/reviews"
+	"github.com/katzien/go-structure-examples/modular/beers"
+	"github.com/katzien/go-structure-examples/modular/reviews"
 )
 
 // Memory data storage layered save only in memory

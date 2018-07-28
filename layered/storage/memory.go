@@ -1,6 +1,6 @@
 package storage
 
-import "github.com/katzien/structure-examples/layered/models"
+import "github.com/katzien/go-structure-examples/layered/models"
 
 // Memory data storage layered save only in memory
 type Memory struct {

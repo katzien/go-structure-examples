@@ -3,7 +3,7 @@ package database
 import (
 	"testing"
 	"time"
-	"github.com/katzien/structure-examples/modular/beers"
+	"github.com/katzien/go-structure-examples/modular/beers"
 )
 
 func TestSaveBeer(t *testing.T) {

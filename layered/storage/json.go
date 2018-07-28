@@ -6,7 +6,7 @@ import (
 	"strconv"
 
 	"github.com/nanobox-io/golang-scribble"
-	"github.com/katzien/structure-examples/layered/models"
+	"github.com/katzien/go-structure-examples/layered/models"
 )
 
 const (

@@ -4,7 +4,7 @@ import (
 	"github.com/julienschmidt/httprouter"
 	"net/http"
 	"encoding/json"
-	"github.com/katzien/structure-examples/domain-driven/beers"
+	"github.com/katzien/go-structure-examples/domain-driven/beers"
 )
 
 // MakeAddBeerEndpoint creates a handler for POST /beers requests

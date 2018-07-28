@@ -1,6 +1,6 @@
 package models
 
-import "github.com/katzien/structure-examples/layered/storage"
+import "github.com/katzien/go-structure-examples/layered/storage"
 
 // StorageType defines available storage types
 type StorageType int

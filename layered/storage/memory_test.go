@@ -3,7 +3,7 @@ package storage
 import (
 	"testing"
 	"time"
-	"github.com/katzien/structure-examples/layered/models"
+	"github.com/katzien/go-structure-examples/layered/models"
 )
 
 func TestSaveBeer(t *testing.T) {

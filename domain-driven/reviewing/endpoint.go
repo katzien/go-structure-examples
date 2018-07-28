@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"strconv"
 	"fmt"
-	"github.com/katzien/structure-examples/domain-driven/reviews"
+	"github.com/katzien/go-structure-examples/domain-driven/reviews"
 )
 
 type Handler func(http.ResponseWriter, *http.Request, httprouter.Params)

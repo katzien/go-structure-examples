@@ -7,7 +7,7 @@ import (
 	"strconv"
 
 	"github.com/julienschmidt/httprouter"
-	"github.com/katzien/structure-examples/modular/database"
+	"github.com/katzien/go-structure-examples/modular/database"
 )
 
 // GetBeers returns the cellar

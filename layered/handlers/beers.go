@@ -7,7 +7,7 @@ import (
 	"strconv"
 
 	"github.com/julienschmidt/httprouter"
-	"github.com/katzien/structure-examples/layered/models"
+	"github.com/katzien/go-structure-examples/layered/models"
 )
 
 // GetBeers returns the cellar

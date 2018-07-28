@@ -1,7 +1,7 @@
 package database
 
-import "github.com/katzien/structure-examples/modular/beers"
-import "github.com/katzien/structure-examples/modular/reviews"
+import "github.com/katzien/go-structure-examples/modular/beers"
+import "github.com/katzien/go-structure-examples/modular/reviews"
 
 // StorageType defines available storage types
 type StorageType int

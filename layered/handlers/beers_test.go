@@ -6,7 +6,7 @@ import (
 	"bytes"
 	"fmt"
 	"testing"
-	"github.com/katzien/structure-examples/layered/models"
+	"github.com/katzien/go-structure-examples/layered/models"
 	"encoding/json"
 	"math/rand"
 	"net/http"

@@ -2,8 +2,8 @@ package database
 
 import (
 	"time"
-	"github.com/katzien/structure-examples/modular/beers"
-	"github.com/katzien/structure-examples/modular/reviews"
+	"github.com/katzien/go-structure-examples/modular/beers"
+	"github.com/katzien/go-structure-examples/modular/reviews"
 )
 
 // PopulateBeers populates the Cellar variable with Beers

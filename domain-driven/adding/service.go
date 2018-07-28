@@ -1,7 +1,7 @@
 package adding
 
 import (
-	"github.com/katzien/structure-examples/domain-driven/beers"
+	"github.com/katzien/go-structure-examples/domain-driven/beers"
 )
 
 // Service provides beer or review adding operations
