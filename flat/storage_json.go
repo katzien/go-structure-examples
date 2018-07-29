@@ -6,13 +6,15 @@ import (
 	"strconv"
 
 	"github.com/nanobox-io/golang-scribble"
+	"github.com/pkg/errors"
+	"time"
 )
 
 const (
 	// CollectionBeer identifier for JSON collection about beers
-	CollectionBeer int = iota
+	CollectionBeer = "beers"
 	// CollectionReview identifier for JSON collection about reviews
-	CollectionReview
+	CollectionReview = "reviews"
 )
 
 // StorageJSON is the data storage layered using JSON file
@@ -20,7 +22,7 @@ type StorageJSON struct {
 	db *scribble.Driver
 }
 
-func newStorageJSON(location string) (*StorageJSON, error) {
+func NewStorageJSON(location string) (*StorageJSON, error) {
 	var err error
 
 	stg := new(StorageJSON)
@@ -33,140 +35,130 @@ func newStorageJSON(location string) (*StorageJSON, error) {
 	return stg, nil
 }
 
-// SaveBeer insert new beers
+// SaveBeer saves a new beer if no duplicates have been found.
 func (s *StorageJSON) SaveBeer(beers ...Beer) error {
 	for _, beer := range beers {
-		var resource = strconv.Itoa(beer.ID)
-		var collection = strconv.Itoa(CollectionBeer)
-
-		allBeers := s.FindBeers()
-		for _, b := range allBeers {
-			if beer.Abv == b.Abv &&
-				beer.Brewery == b.Brewery &&
-				beer.Name == b.Name {
-				return fmt.Errorf("Beer already exists")
-			}
-		}
-
-		// TODO: Since delete function has not been implemented yet
-		// I think we can assume size of beers should always increase.
-		beer.ID = len(allBeers) + 1
-
-		if err := s.db.Write(collection, resource, beer); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-// SaveReview insert reviews
-func (s *StorageJSON) SaveReview(reviews ...Review) error {
-	for _, review := range reviews {
-		var resource = strconv.Itoa(review.ID)
-		var collection = strconv.Itoa(CollectionReview)
-
-		beerFound, err := s.FindBeer(Beer{ID: review.BeerID})
+		allBeers, err := s.FindBeers()
 		if err != nil {
 			return err
 		}
 
-		if len(beerFound) == 0 {
-			return fmt.Errorf("The beer selected for the review does not exist")
-		}
-
-		allReviews := s.FindReviews()
-		for _, r := range allReviews {
-			if review.BeerID == r.BeerID &&
-				review.FirstName == r.FirstName &&
-				review.LastName == r.LastName &&
-				review.Text == r.Text {
-				return fmt.Errorf("Review already exists")
+		for _, b := range allBeers {
+			if beer.Abv == b.Abv &&
+				beer.Brewery == b.Brewery &&
+				beer.Name == b.Name {
+				return fmt.Errorf("beer already exists")
 			}
 		}
 
-		// TODO: Since delete function has not been implemented yet
-		// I think we can assume size of reviews should always increase.
-		review.ID = len(allReviews) + 1
+		// for simplicity, and since the delete function does not exist, assume we'll just auto-increment the ID
+		beer.ID = len(allBeers) + 1
+		beer.Created = time.Now()
 
-		if err = s.db.Write(collection, resource, review); err != nil {
+		if err := s.db.Write(CollectionBeer, strconv.Itoa(beer.ID), beer); err != nil {
 			return err
 		}
 	}
 	return nil
 }
 
-// FindBeer locate full data set based on given criteria
-func (s *StorageJSON) FindBeer(criteria Beer) ([]*Beer, error) {
-	var beers []*Beer
-	var beer Beer
-	var resource = strconv.Itoa(criteria.ID)
-	var collection = strconv.Itoa(CollectionBeer)
+// SaveBeer saves a new review.
+func (s *StorageJSON) SaveReview(reviews ...Review) error {
+	for _, review := range reviews {
 
-	if err := s.db.Read(collection, resource, &beer); err != nil {
-		return beers, err
+		review.Created = time.Now()
+		review.ID = fmt.Sprintf("%d_%d", review.BeerID, review.Created.UnixNano())
+
+		if err := s.db.Write(CollectionReview, review.ID, review); err != nil {
+			return err
+		}
 	}
 
-	beers = append(beers, &beer)
-
-	return beers, nil
+	return nil
 }
 
-// FindReview locate full data set based on given criteria
-func (s *StorageJSON) FindReview(criteria Review) ([]*Review, error) {
-	var reviews []*Review
-	var review Review
-	var resource = strconv.Itoa(criteria.ID)
-	var collection = strconv.Itoa(CollectionReview)
-
-	if err := s.db.Read(collection, resource, &review); err != nil {
-		return reviews, err
-	}
-
-	reviews = append(reviews, &review)
-
-	return reviews, nil
-}
-
-func (s *StorageJSON) FindBeers() []Beer {
+// FindBeer returns any beers matching the given criteria.
+// Beer ID is the only criteria supported at the moment.
+func (s *StorageJSON) FindBeer(criteria Beer) ([]Beer, error) {
 	var beers []Beer
-	var collection = strconv.Itoa(CollectionBeer)
 
-	records, err := s.db.ReadAll(collection)
-	if err != nil {
-		return beers
-	}
-
-	for _, b := range records {
+	if criteria.ID != 0 {
 		var beer Beer
-
-		if err := json.Unmarshal([]byte(b), &beer); err != nil {
-			return beers
+		if err := s.db.Read(CollectionBeer, strconv.Itoa(criteria.ID), &beer); err != nil {
+			return beers, err
 		}
 
 		beers = append(beers, beer)
+
+		return beers, nil
 	}
 
-	return beers
+	return beers, fmt.Errorf("no beer ID specified")
 }
 
-func (s *StorageJSON) FindReviews() []Review {
-	var reviews []Review
-	var collection = strconv.Itoa(CollectionReview)
+// FindReview finds all reviews for a given criteria.
+// Beer ID is the only criteria supported at the moment.
+func (s *StorageJSON) FindReview(criteria Review) ([]Review, error) {
+	var matches []Review
 
-	records, err := s.db.ReadAll(collection)
+	if criteria.BeerID != 0 {
+		reviews, err := s.findReviews()
+		if err != nil {
+			return matches, err
+		}
+
+		for _, r := range reviews {
+			if r.BeerID == criteria.BeerID {
+				matches = append(matches, r)
+			}
+		}
+
+		return matches, nil
+	}
+
+	return matches, fmt.Errorf("no beer ID specified")
+}
+
+// findReviews returns all reviews found in the storage
+func (s *StorageJSON) findReviews() ([]Review, error) {
+	var reviews []Review
+
+	records, err := s.db.ReadAll(CollectionReview)
 	if err != nil {
-		return reviews
+		return reviews, errors.Errorf("failed to fetch all reviews from the JSON storage: %s", err.Error())
 	}
 
 	for _, r := range records {
 		var review Review
 
 		if err := json.Unmarshal([]byte(r), &review); err != nil {
-			return reviews
+			return reviews, errors.Errorf("failed to parse review data from the JSON file: %s data: %s", err.Error(), r)
 		}
 
 		reviews = append(reviews, review)
 	}
 
-	return reviews
+	return reviews, nil
+}
+
+// FindBeers returns all beers found in the storage
+func (s *StorageJSON) FindBeers() ([]Beer, error) {
+	var beers []Beer
+
+	records, err := s.db.ReadAll(CollectionBeer)
+	if err != nil {
+		return beers, errors.Errorf("failed to fetch all beers from the JSON storage: %s", err.Error())
+	}
+
+	for _, b := range records {
+		var beer Beer
+
+		if err := json.Unmarshal([]byte(b), &beer); err != nil {
+			return beers, errors.Errorf("failed to parse beer data from the JSON file: %s data: %s", err.Error(), b)
+		}
+
+		beers = append(beers, beer)
+	}
+
+	return beers, nil
 }

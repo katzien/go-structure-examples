@@ -8,14 +8,16 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
-// db is an interface to interact with data on multiple layered of data storage
+// ServerAddr defines the http host and port of the beer server
+const ServerAddr = "localhost:8080"
+
 var db Storage
 var router *httprouter.Router
 
 func init() {
 	var err error
 
-	db, err = NewStorage(Memory)
+	db, err = NewStorage(JSON)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -34,6 +36,6 @@ func init() {
 }
 
 func main() {
-	fmt.Println("The beer server is on tap now.")
-	log.Fatal(http.ListenAndServe(":8080", router))
+	fmt.Println("The beer server is on tap at http://localhost:8080.")
+	log.Fatal(http.ListenAndServe(ServerAddr, router))
 }

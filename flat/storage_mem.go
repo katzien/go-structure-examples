@@ -1,5 +1,10 @@
 package main
 
+import (
+	"time"
+	"fmt"
+)
+
 // StorageMemory data storage layered save only in memory
 type StorageMemory struct {
 	cellar  []Beer
@@ -9,19 +14,19 @@ type StorageMemory struct {
 // SaveBeer insert or update beers
 func (s *StorageMemory) SaveBeer(beers ...Beer) error {
 	for _, beer := range beers {
-		var err error
 
-		beersFound, err := s.FindBeer(beer)
-		if err != nil {
-			return err
+		for _, b := range s.cellar {
+			if beer.Abv == b.Abv &&
+				beer.Brewery == b.Brewery &&
+				beer.Name == b.Name {
+				return fmt.Errorf("beer already exists")
+			}
 		}
 
-		if len(beersFound) == 1 {
-			*beersFound[0] = beer
-			return nil
-		}
-
+		// for simplicity, and since the delete function does not exist, assume we'll just auto-increment the ID
 		beer.ID = len(s.cellar) + 1
+		beer.Created = time.Now()
+
 		s.cellar = append(s.cellar, beer)
 	}
 
@@ -31,58 +36,46 @@ func (s *StorageMemory) SaveBeer(beers ...Beer) error {
 // SaveReview insert or update reviews
 func (s *StorageMemory) SaveReview(reviews ...Review) error {
 	for _, review := range reviews {
-		var err error
 
-		reviewsFound, err := s.FindReview(review)
-		if err != nil {
-			return err
-		}
+		review.ID = fmt.Sprintf("%d_%d", review.BeerID, review.Created.Unix())
+		review.Created = time.Now()
 
-		if len(reviewsFound) == 1 {
-			*reviewsFound[0] = review
-			return nil
-		}
-
-		review.ID = len(s.reviews) + 1
 		s.reviews = append(s.reviews, review)
 	}
 
 	return nil
 }
 
-// FindBeer locate full data set based on given criteria
-func (s *StorageMemory) FindBeer(criteria Beer) ([]*Beer, error) {
-	var beers []*Beer
+// FindBeer returns any beers matching the given criteria.
+// Beer ID is the only criteria supported at the moment.
+func (s *StorageMemory) FindBeer(criteria Beer) ([]Beer, error) {
+	var beers []Beer
 
-	for idx := range s.cellar {
+	for _, b := range s.cellar {
 
-		if s.cellar[idx].ID == criteria.ID {
-			beers = append(beers, &s.cellar[idx])
+		if b.ID == criteria.ID {
+			beers = append(beers, b)
 		}
 	}
 
 	return beers, nil
 }
 
-// FindReview locate full data set based on given criteria
-func (s *StorageMemory) FindReview(criteria Review) ([]*Review, error) {
-	var reviews []*Review
+// FindReview finds all reviews for a given criteria.
+// Beer ID is the only criteria supported at the moment.
+func (s *StorageMemory) FindReview(criteria Review) ([]Review, error) {
+	var matches []Review
 
-	for idx := range s.reviews {
-		if s.reviews[idx].ID == criteria.ID || s.reviews[idx].BeerID == criteria.BeerID {
-			reviews = append(reviews, &s.reviews[idx])
+	for _ ,r := range s.reviews {
+		if r.BeerID == criteria.BeerID {
+			matches = append(matches, r)
 		}
 	}
 
-	return reviews, nil
+	return matches, nil
 }
 
 // FindBeers return all beers
-func (s *StorageMemory) FindBeers() []Beer {
-	return s.cellar
-}
-
-// FindReviews return all reviews
-func (s *StorageMemory) FindReviews() []Review {
-	return s.reviews
+func (s *StorageMemory) FindBeers() ([]Beer, error) {
+	return s.cellar, nil
 }

@@ -4,6 +4,9 @@ package main
 type StorageType int
 
 const (
+	// JSONDataLocation defines where the JSON data files will be saved
+	JSONDataLocation = "./data/"
+
 	// JSON will store data in JSON files saved on disk
 	JSON StorageType = iota
 	// Memory will store data in memory
@@ -14,10 +17,9 @@ const (
 type Storage interface {
 	SaveBeer(...Beer) error
 	SaveReview(...Review) error
-	FindBeer(Beer) ([]*Beer, error)
-	FindReview(Review) ([]*Review, error)
-	FindBeers() []Beer
-	FindReviews() []Review
+	FindBeer(Beer) ([]Beer, error)
+	FindReview(Review) ([]Review, error)
+	FindBeers() ([]Beer, error)
 }
 
 func NewStorage(storageType StorageType) (Storage, error) {
@@ -30,7 +32,7 @@ func NewStorage(storageType StorageType) (Storage, error) {
 
 	case JSON:
 		// for the moment storage location for JSON files is the current working directory
-		stg, err = newStorageJSON("./data/")
+		stg, err = NewStorageJSON(JSONDataLocation)
 	}
 
 	return stg, err
