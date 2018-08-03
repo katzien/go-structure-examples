@@ -6,18 +6,18 @@ import (
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
-	"github.com/katzien/go-structure-examples/domain-driven/beers"
-	"github.com/katzien/go-structure-examples/domain-driven/reviews"
-	"github.com/katzien/go-structure-examples/domain-driven/storage"
-	"github.com/katzien/go-structure-examples/domain-driven/adding"
-	"github.com/katzien/go-structure-examples/domain-driven/reviewing"
-	"github.com/katzien/go-structure-examples/domain-driven/listing"
+	"github.com/katzien/go-structure-examples/actor/storage"
+	"github.com/katzien/go-structure-examples/actor/pkg/beers"
+	"github.com/katzien/go-structure-examples/actor/pkg/reviews"
+	"github.com/katzien/go-structure-examples/actor/pkg/adding"
+	"github.com/katzien/go-structure-examples/actor/pkg/reviewing"
+	"github.com/katzien/go-structure-examples/actor/pkg/listing"
 )
 
 func main() {
 
 	// set up storage
-	storageType := storage.InMemory // this could be a flag; hardcoded here for simplicity
+	storageType := storage.JSONFiles // this could be a flag; hardcoded here for simplicity
 
 	var beersStorage beers.Repository
 	var reviewsStorage reviews.Repository

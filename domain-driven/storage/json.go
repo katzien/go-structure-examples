@@ -123,7 +123,7 @@ func (s *JSONReviewStorage) Add(r reviews.Review) error {
 		return reviews.ErrNotFound
 	}
 
-	r.ID = fmt.Sprintf("%s_%s_%s_%s", r.BeerID, r.FirstName, r.LastName, r.Created.Unix())
+	r.ID = fmt.Sprintf("%d_%s_%s_%d", r.BeerID, r.FirstName, r.LastName, r.Created.Unix())
 	r.Created = time.Now()
 
 	if err := s.db.Write(CollectionReview, r.ID, r); err != nil {

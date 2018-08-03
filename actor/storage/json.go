@@ -6,9 +6,9 @@ import (
 
 	"github.com/nanobox-io/golang-scribble"
 	"strconv"
-	"github.com/katzien/go-structure-examples/domain-driven/beers"
-	"github.com/katzien/go-structure-examples/domain-driven/reviews"
 	"time"
+	"github.com/katzien/go-structure-examples/actor/pkg/beers"
+	"github.com/katzien/go-structure-examples/actor/pkg/reviews"
 )
 
 const (
