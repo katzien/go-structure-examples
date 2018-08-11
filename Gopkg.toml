@@ -22,3 +22,7 @@
 [[constraint]]
   name = "github.com/julienschmidt/httprouter"
   version = "1.1.0"
+
+[[constraint]]
+  name = "github.com/nanobox-io/golang-scribble"
+  branch = "master"

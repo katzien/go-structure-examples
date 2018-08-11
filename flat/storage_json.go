@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/nanobox-io/golang-scribble"
 	"github.com/pkg/errors"
 	"time"
+	"github.com/nanobox-io/golang-scribble"
 )
 
 const (

@@ -1,2 +1,17 @@
 .DS_Store
 .idea
+
+**/data/beers/**
+**/data/reviews/**
+vendor
+
+flat/flat
+modular/modular
+layered/layered
+domain-driven/domain-driven
+domain-driven-hex/cmd/beer-server/beer-server
+domain-driven-hex/cmd/sample-data/sample-data
+actor/cmd/data/data
+actor/cmd/server/server
+
+
