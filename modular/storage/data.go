@@ -1,4 +1,4 @@
-package database
+package storage
 
 import (
 	"time"
@@ -9,7 +9,7 @@ import (
 // PopulateBeers populates the Cellar variable with Beers
 func PopulateBeers() {
 	defaultBeers := []beers.Beer{
-		beers.Beer{
+		{
 			ID:      1,
 			Name:    "Pliny the Elder",
 			Brewery: "Russian River Brewing Company",
@@ -20,7 +20,7 @@ func PopulateBeers() {
 				"aroma of floral, citrus, and pine.",
 			Created: time.Date(2017, time.October, 24, 22, 6, 0, 0, time.UTC),
 		},
-		beers.Beer{
+		{
 			ID:      2,
 			Name:    "Oatmeal Stout",
 			Brewery: "Samuel Smith",
@@ -33,7 +33,7 @@ func PopulateBeers() {
 				"medium dry palate and bittersweet finish.",
 			Created: time.Date(2017, time.October, 24, 22, 12, 0, 0, time.UTC),
 		},
-		beers.Beer{
+		{
 			ID:      3,
 			Name:    "Märzen",
 			Brewery: "Schlenkerla",
@@ -45,7 +45,7 @@ func PopulateBeers() {
 				"brewery tavern.",
 			Created: time.Date(2017, time.October, 24, 22, 17, 0, 0, time.UTC),
 		},
-		beers.Beer{
+		{
 			ID:      4,
 			Name:    "Duvel",
 			Brewery: "Duvel Moortgat",
@@ -56,7 +56,7 @@ func PopulateBeers() {
 				"the use of only the highest-quality hop varieties.",
 			Created: time.Date(2017, time.October, 24, 22, 24, 0, 0, time.UTC),
 		},
-		beers.Beer{
+		{
 			ID:      5,
 			Name:    "Negra",
 			Brewery: "Modelo",
@@ -66,7 +66,7 @@ func PopulateBeers() {
 				"smooth taste.",
 			Created: time.Date(2017, time.October, 24, 22, 27, 0, 0, time.UTC),
 		},
-		beers.Beer{
+		{
 			ID:      6,
 			Name:    "Guinness Draught",
 			Brewery: "Guinness Ltd.",
@@ -78,7 +78,7 @@ func PopulateBeers() {
 				"Finish is medium bitter cocoa with more pronounced roast flavor. Smooth drinker.",
 			Created: time.Date(2017, time.October, 24, 22, 27, 0, 0, time.UTC),
 		},
-		beers.Beer{
+		{
 			ID:      7,
 			Name:    "XX Lager",
 			Brewery: "Cuahutemoc Moctezuma",
@@ -88,7 +88,7 @@ func PopulateBeers() {
 				"A beverage made from pure spring water and the choicest hops. A beer with such good taste, it’s chosen you to drink it.",
 			Created: time.Date(2017, time.October, 28, 15, 02, 0, 0, time.UTC),
 		},
-		beers.Beer{
+		{
 			ID:      8,
 			Name:    "Tecate",
 			Brewery: "Cuahutemoc Moctezuma",
@@ -98,7 +98,7 @@ func PopulateBeers() {
 				"Finishes a bit dry with husk tannins and a pasty mouthfeel.",
 			Created: time.Date(2017, time.October, 28, 15, 07, 0, 0, time.UTC),
 		},
-		beers.Beer{
+		{
 			ID:      9,
 			Name:    "Sol",
 			Brewery: "Cuahutemoc Moctezuma",
@@ -108,7 +108,7 @@ func PopulateBeers() {
 				"but still slightly more flavorful than your typical American macrobrew. At its best ice cold, and progressively worse as it gets warmer.",
 			Created: time.Date(2017, time.October, 28, 15, 12, 0, 0, time.UTC),
 		},
-		beers.Beer{
+		{
 			ID:      10,
 			Name:    "Corona",
 			Brewery: "Cuahutemoc Moctezuma",
@@ -125,12 +125,12 @@ func PopulateBeers() {
 // PopulateReviews populates the Reviews variable with Reviews
 func PopulateReviews() {
 	defaultReviews := []reviews.Review{
-		reviews.Review{ID: 1, BeerID: 1, FirstName: "Joe", LastName: "Tribiani", Score: 5, Text: "This is good but this is not pizza!", Created: time.Date(2017, time.November, 10, 12, 36, 0, 0, time.UTC)},
-		reviews.Review{ID: 2, BeerID: 2, FirstName: "Chandler", LastName: "Bing", Score: 1, Text: "I would SO NOT drink this ever again.", Created: time.Date(2017, time.October, 25, 5, 55, 0, 0, time.UTC)},
-		reviews.Review{ID: 3, BeerID: 1, FirstName: "Ross", LastName: "Geller", Score: 4, Text: "Drank while on a break, was pretty good!", Created: time.Date(2017, time.October, 25, 12, 3, 0, 0, time.UTC)},
-		reviews.Review{ID: 4, BeerID: 2, FirstName: "Phoebe", LastName: "Buffay", Score: 2, Text: "Wasn't that great, so I gave it to my smelly cat.", Created: time.Date(2017, time.October, 21, 16, 45, 0, 0, time.UTC)},
-		reviews.Review{ID: 5, BeerID: 1, FirstName: "Monica", LastName: "Geller", Score: 5, Text: "AMAZING! Like Chandler's jokes!", Created: time.Date(2017, time.October, 22, 13, 41, 0, 0, time.UTC)},
-		reviews.Review{ID: 6, BeerID: 2, FirstName: "Rachel", LastName: "Green", Score: 5, Text: "So yummy, just like my beef and custard trifle.", Created: time.Date(2017, time.October, 17, 9, 12, 0, 0, time.UTC)},
+		{ID: 1, BeerID: 1, FirstName: "Joe", LastName: "Tribiani", Score: 5, Text: "This is good but this is not pizza!", Created: time.Date(2017, time.November, 10, 12, 36, 0, 0, time.UTC)},
+		{ID: 2, BeerID: 2, FirstName: "Chandler", LastName: "Bing", Score: 1, Text: "I would SO NOT drink this ever again.", Created: time.Date(2017, time.October, 25, 5, 55, 0, 0, time.UTC)},
+		{ID: 3, BeerID: 1, FirstName: "Ross", LastName: "Geller", Score: 4, Text: "Drank while on a break, was pretty good!", Created: time.Date(2017, time.October, 25, 12, 3, 0, 0, time.UTC)},
+		{ID: 4, BeerID: 2, FirstName: "Phoebe", LastName: "Buffay", Score: 2, Text: "Wasn't that great, so I gave it to my smelly cat.", Created: time.Date(2017, time.October, 21, 16, 45, 0, 0, time.UTC)},
+		{ID: 5, BeerID: 1, FirstName: "Monica", LastName: "Geller", Score: 5, Text: "AMAZING! Like Chandler's jokes!", Created: time.Date(2017, time.October, 22, 13, 41, 0, 0, time.UTC)},
+		{ID: 6, BeerID: 2, FirstName: "Rachel", LastName: "Green", Score: 5, Text: "So yummy, just like my beef and custard trifle.", Created: time.Date(2017, time.October, 17, 9, 12, 0, 0, time.UTC)},
 	}
 	DB.SaveReview(defaultReviews...)
 }

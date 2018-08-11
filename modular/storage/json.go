@@ -1,4 +1,4 @@
-package database
+package storage
 
 import (
 	"encoding/json"
@@ -8,6 +8,7 @@ import (
 	"github.com/nanobox-io/golang-scribble"
 	"github.com/katzien/go-structure-examples/modular/beers"
 	"github.com/katzien/go-structure-examples/modular/reviews"
+	"time"
 )
 
 const (
@@ -46,12 +47,12 @@ func (s *JSONStorage) SaveBeer(beers ...beers.Beer) error {
 			if beer.Abv == b.Abv &&
 				beer.Brewery == b.Brewery &&
 				beer.Name == b.Name {
-				return fmt.Errorf("Beer already exists")
+				return fmt.Errorf("beer already exists")
 			}
 		}
 
-		// TODO: Since delete function has not been implemented yet
-		// I think we can assume size of beers should always increase.
+		// for simplicity we'll assume the IDs will always increase,
+		// since there's no delete functionality
 		beer.ID = len(allBeers) + 1
 
 		if err := s.db.Write(collection, resource, beer); err != nil {
@@ -64,7 +65,6 @@ func (s *JSONStorage) SaveBeer(beers ...beers.Beer) error {
 // SaveReview insert reviews
 func (s *JSONStorage) SaveReview(reviews ...reviews.Review) error {
 	for _, review := range reviews {
-		var resource = strconv.Itoa(review.ID)
 		var collection = strconv.Itoa(CollectionReview)
 
 		beerFound, err := s.FindBeer(beers.Beer{ID: review.BeerID})
@@ -73,7 +73,7 @@ func (s *JSONStorage) SaveReview(reviews ...reviews.Review) error {
 		}
 
 		if len(beerFound) == 0 {
-			return fmt.Errorf("The beer selected for the review does not exist")
+			return fmt.Errorf("beer selected for review does not exist")
 		}
 
 		allReviews := s.FindReviews()
@@ -82,15 +82,13 @@ func (s *JSONStorage) SaveReview(reviews ...reviews.Review) error {
 				review.FirstName == r.FirstName &&
 				review.LastName == r.LastName &&
 				review.Text == r.Text {
-				return fmt.Errorf("Review already exists")
+				return fmt.Errorf("review already exists")
 			}
 		}
 
-		// TODO: Since delete function has not been implemented yet
-		// I think we can assume size of reviews should always increase.
-		review.ID = len(allReviews) + 1
+		review.ID = fmt.Sprintf("%d_%s_%s_%d", review.BeerID, review.FirstName, review.LastName, time.Now().Unix())
 
-		if err = s.db.Write(collection, resource, review); err != nil {
+		if err = s.db.Write(collection, review.ID, review); err != nil {
 			return err
 		}
 	}

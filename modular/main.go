@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
-	"github.com/katzien/go-structure-examples/modular/database"
+	"github.com/katzien/go-structure-examples/modular/storage"
 	"github.com/katzien/go-structure-examples/modular/beers"
 	"github.com/katzien/go-structure-examples/modular/reviews"
 )
@@ -16,13 +16,13 @@ var router *httprouter.Router
 func init() {
 	var err error
 
-	err = database.NewStorage(database.Memory)
+	err = storage.NewStorage(storage.Memory)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	database.PopulateBeers()
-	database.PopulateReviews()
+	storage.PopulateBeers()
+	storage.PopulateReviews()
 
 	router = httprouter.New()
 

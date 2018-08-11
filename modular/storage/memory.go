@@ -1,8 +1,10 @@
-package database
+package storage
 
 import (
 	"github.com/katzien/go-structure-examples/modular/beers"
 	"github.com/katzien/go-structure-examples/modular/reviews"
+	"time"
+	"fmt"
 )
 
 // Memory data storage layered save only in memory
@@ -35,21 +37,22 @@ func (s *MemoryStorage) SaveBeer(beers ...beers.Beer) error {
 
 // SaveReview insert or update reviews
 func (s *MemoryStorage) SaveReview(reviews ...reviews.Review) error {
-	for _, review := range reviews {
+	for _, r := range reviews {
 		var err error
 
-		reviewsFound, err := s.FindReview(review)
+		reviewsFound, err := s.FindReview(r)
 		if err != nil {
 			return err
 		}
 
 		if len(reviewsFound) == 1 {
-			*reviewsFound[0] = review
+			*reviewsFound[0] = r
 			return nil
 		}
 
-		review.ID = len(s.reviews) + 1
-		s.reviews = append(s.reviews, review)
+		created := time.Now()
+		r.ID = fmt.Sprintf("%d_%s_%s_%d", r.BeerID, r.FirstName, r.LastName, created.Unix())
+		s.reviews = append(s.reviews, r)
 	}
 
 	return nil

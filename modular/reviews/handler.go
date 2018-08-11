@@ -7,7 +7,7 @@ import (
 	"strconv"
 
 	"github.com/julienschmidt/httprouter"
-	"github.com/katzien/go-structure-examples/modular/database"
+	"github.com/katzien/go-structure-examples/modular/storage"
 )
 
 // GetBeerReviews returns all reviews for a beer
@@ -18,10 +18,7 @@ func GetBeerReviews(w http.ResponseWriter, r *http.Request, ps httprouter.Params
 		return
 	}
 
-	// TODO: Consider checking if a beer matching the ID actually exists, and
-	// 404 if that is not the case.
-
-	results, _ := database.DB.FindReview(Review{BeerID: ID})
+	results, _ := storage.DB.FindReview(Review{BeerID: ID})
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(results)
 }
@@ -42,7 +39,7 @@ func AddBeerReview(w http.ResponseWriter, r *http.Request, ps httprouter.Params)
 	}
 
 	newReview.BeerID = ID
-	if err := database.DB.SaveReview(newReview); err != nil {
+	if err := storage.DB.SaveReview(newReview); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 	}
 	w.Header().Set("Content-Type", "application/json")

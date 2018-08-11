@@ -1,22 +1,19 @@
-package database
+package storage
 
 import "github.com/katzien/go-structure-examples/modular/beers"
 import "github.com/katzien/go-structure-examples/modular/reviews"
 
 // StorageType defines available storage types
-type StorageType int
+type Type int
 
 const (
 	// JSON will store data in JSON files saved on disk
-	JSON StorageType = iota
+	JSON Type = iota
 	// Memory will store data in memory
 	Memory
 )
 
-// DB is an interface to interact with data on multiple layered of data storage
-var DB Storage
-
-// Storage represents all possible actions available to deal with data
+// Storage defines the functionality of a data store for the beer service.
 type Storage interface {
 	SaveBeer(...beers.Beer) error
 	SaveReview(...reviews.Review) error
@@ -26,10 +23,13 @@ type Storage interface {
 	FindReviews() []reviews.Review
 }
 
-func NewStorage(storageType StorageType) error {
+// DB is the "global" storage instance
+var DB Storage
+
+func NewStorage(t Type) error {
 	var err error
 
-	switch storageType {
+	switch t {
 	case Memory:
 		DB = new(MemoryStorage)
 
