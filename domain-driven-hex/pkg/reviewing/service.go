@@ -1,32 +1,40 @@
 package reviewing
 
 import (
-	"github.com/katzien/go-structure-examples/domain-driven/reviews"
+	"errors"
 )
+
+// ErrNotFound is used when a beer could not be found.
+var ErrNotFound = errors.New("beer not found")
+
+// Repository provides access to the reviews.
+type Repository interface {
+	AddReview(review Review) error
+}
 
 // Service provides beer or review adding operations
 type Service interface {
-	AddBeerReview(r reviews.Review)
+	AddBeerReview(r Review)
 	AddSampleReviews()
 }
 
 type service struct {
-	rR reviews.Repository
+	rR Repository
 }
 
 // NewService creates an adding service with the necessary dependencies
-func NewService(rR reviews.Repository) Service {
-	return &service{rR}
+func NewService(r Repository) Service {
+	return &service{r}
 }
 
 // AddBeerReview saves a new beer review in the database
-func (s *service) AddBeerReview(r reviews.Review) {
-	_ = s.rR.Add(r) // error handling omitted for simplicity
+func (s *service) AddBeerReview(r Review) {
+	_ = s.rR.AddReview(r) // error handling omitted for simplicity
 }
 
 // AddSampleReviews adds some sample reviews to the database
 func (s *service) AddSampleReviews() {
-	for _, b := range reviews.DefaultReviews {
-		_ = s.rR.Add(b) // error handling omitted for simplicity
+	for _, b := range DefaultReviews {
+		_ = s.rR.AddReview(b) // error handling omitted for simplicity
 	}
 }

@@ -1,43 +1,46 @@
 package listing
 
 import (
-	"github.com/katzien/go-structure-examples/domain-driven/reviews"
-	"github.com/katzien/go-structure-examples/domain-driven/beers"
+	"errors"
 )
+
+// ErrNotFound is used when a beer could not be found.
+var ErrNotFound = errors.New("beer not found")
+
+// Repository provides access to the beer and review data.
+type Repository interface {
+	GetBeer(beerID int) (Beer, error)
+	GetAllBeers() []Beer
+	GetAllReviews(beerID int) ([]Review)
+}
 
 // Service provides beer or review adding operations
 type Service interface {
-	GetBeers() []beers.Beer
-	GetBeer(int) (beers.Beer, error)
-	GetBeerReviews(int) ([]reviews.Review, error)
+	GetBeer(int) (Beer, error)
+	GetBeers() []Beer
+	GetBeerReviews(int) ([]Review)
 }
 
 type service struct {
-	bR beers.Repository
-	rR reviews.Repository
+	r Repository
 }
 
-// NewService creates an adding service with the necessary dependencies
-func NewService(bR beers.Repository, rR reviews.Repository) Service {
-	return &service{bR, rR}
+// NewService creates a listing service with the necessary dependencies
+func NewService(r Repository) Service {
+	return &service{r}
 }
 
 // GetBeers returns all beers
-func (s *service) GetBeers() []beers.Beer {
-	return s.bR.GetAll()
+func (s *service) GetBeers() []Beer {
+	return s.r.GetAllBeers()
 }
 
 // GetBeer returns a beer
-func (s *service) GetBeer(id int) (beers.Beer, error) {
-	return s.bR.Get(id)
+func (s *service) GetBeer(id int) (Beer, error) {
+	return s.r.GetBeer(id)
 }
 
 // GetBeerReviews returns all requests for a beer
-func (s *service) GetBeerReviews(beerID int) ([]reviews.Review, error) {
-	var list []reviews.Review
-	if _, err := s.bR.Get(beerID); err == beers.ErrUnknown {
-		return list, reviews.ErrNotFound
-	}
-
-	return s.rR.GetAll(beerID), nil
+func (s *service) GetBeerReviews(beerID int) ([]Review) {
+	return s.r.GetAllReviews(beerID)
 }

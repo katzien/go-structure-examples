@@ -1,8 +1,7 @@
-package reviews
+package listing
 
 import (
 	"time"
-	"errors"
 )
 
 // Review defines a beer review
@@ -14,13 +13,4 @@ type Review struct {
 	Score     int       `json:"score"`
 	Text      string    `json:"text"`
 	Created   time.Time `json:"created"`
-}
-
-// ErrNotFound is used when a beer could not be found.
-var ErrNotFound = errors.New("beer not found")
-
-// Repository provides access to the reviews.
-type Repository interface {
-	GetAll(beerID int) []Review
-	Add(review Review) error
 }

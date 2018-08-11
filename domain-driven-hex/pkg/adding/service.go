@@ -1,34 +1,48 @@
 package adding
 
 import (
-	"github.com/katzien/go-structure-examples/domain-driven/beers"
+	"errors"
 )
+
+// ErrUnknown is used when a beer could not be found.
+var ErrDuplicate = errors.New("beer already exists")
 
 // Service provides beer or review adding operations
 type Service interface {
-	AddBeer(b ...beers.Beer)
+	AddBeer(b ...Beer)
 	AddSampleBeers()
 }
 
+// Repository provides access to the list of beers.
+type Repository interface {
+	AddBeer(Beer) error
+}
+
 type service struct {
-	bR beers.Repository
+	bR Repository
 }
 
 // NewService creates an adding service with the necessary dependencies
-func NewService(bR beers.Repository) Service {
-	return &service{bR}
+func NewService(r Repository) Service {
+	return &service{r}
 }
 
 // AddBeer adds the given beer(s) to the database
-func (s *service) AddBeer(b ...beers.Beer) {
+func (s *service) AddBeer(b ...Beer) {
+
+	// any validation can be done here
+
 	for _, beer := range b {
-		_ = s.bR.Add(beer) // error handling omitted for simplicity
+		_ = s.bR.AddBeer(beer) // error handling omitted for simplicity
 	}
 }
 
 // AddSampleBeers adds some sample beers to the database
 func (s *service) AddSampleBeers() {
-	for _, b := range beers.DefaultBeers {
-		_ = s.bR.Add(b) // error handling omitted for simplicity
+
+	// any validation can be done here
+
+	for _, b := range DefaultBeers {
+		_ = s.bR.AddBeer(b) // error handling omitted for simplicity
 	}
 }
