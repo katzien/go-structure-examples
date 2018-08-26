@@ -7,14 +7,17 @@ import (
 // ErrNotFound is used when a beer could not be found.
 var ErrNotFound = errors.New("beer not found")
 
-// Repository provides access to the beer and review data.
+// Repository provides access to the beer and review storage.
 type Repository interface {
-	GetBeer(beerID int) (Beer, error)
+	// GetBeer returns the beer with given ID.
+	GetBeer(int) (Beer, error)
+	// GetAllBeers returns all beers saved in storage.
 	GetAllBeers() []Beer
-	GetAllReviews(beerID int) ([]Review)
+	// GetAllReviews returns a list of all reviews for a given beer ID.
+	GetAllReviews(int) ([]Review)
 }
 
-// Service provides beer or review adding operations
+// Service provides beer and review listing operations.
 type Service interface {
 	GetBeer(int) (Beer, error)
 	GetBeers() []Beer

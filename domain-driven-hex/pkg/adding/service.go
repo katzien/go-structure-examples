@@ -7,14 +7,15 @@ import (
 // ErrUnknown is used when a beer could not be found.
 var ErrDuplicate = errors.New("beer already exists")
 
-// Service provides beer or review adding operations
+// Service provides beer adding operations.
 type Service interface {
-	AddBeer(b ...Beer)
+	AddBeer(...Beer)
 	AddSampleBeers()
 }
 
-// Repository provides access to the list of beers.
+// Repository provides access to beer repository.
 type Repository interface {
+	// AddBeer saves a given beer to the repository.
 	AddBeer(Beer) error
 }
 
