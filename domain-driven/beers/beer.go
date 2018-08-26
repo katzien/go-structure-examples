@@ -19,9 +19,12 @@ type Beer struct {
 var ErrUnknown = errors.New("unknown beer")
 var ErrDuplicate = errors.New("beer already exists")
 
-// Repository provides access to the list of beers.
+// Repository provides access to the beer storage.
 type Repository interface {
+	// GetAll returns all beers saved in storage.
 	GetAll() []Beer
-	Get(id int) (Beer, error)
+	// Get returns the beer with given ID.
+	Get(int) (Beer, error)
+	// Add saves a given beer to the repository.
 	Add(Beer) error
 }

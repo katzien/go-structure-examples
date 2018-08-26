@@ -19,8 +19,10 @@ type Review struct {
 // ErrNotFound is used when a beer could not be found.
 var ErrNotFound = errors.New("beer not found")
 
-// Repository provides access to the reviews.
+// Repository provides access to the review storage.
 type Repository interface {
-	GetAll(beerID int) []Review
-	Add(review Review) error
+	// GetAll returns a list of all reviews for a given beer ID.
+	GetAll(int) []Review
+	// Add saves a given review.
+	Add(Review) error
 }

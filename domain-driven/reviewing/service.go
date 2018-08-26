@@ -4,9 +4,9 @@ import (
 	"github.com/katzien/go-structure-examples/domain-driven/reviews"
 )
 
-// Service provides beer or review adding operations
+// Service provides review adding operations
 type Service interface {
-	AddBeerReview(r reviews.Review)
+	AddBeerReview(reviews.Review)
 	AddSampleReviews()
 }
 

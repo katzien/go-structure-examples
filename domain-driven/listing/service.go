@@ -5,7 +5,7 @@ import (
 	"github.com/katzien/go-structure-examples/domain-driven/beers"
 )
 
-// Service provides beer or review adding operations
+// Service provides beer or review listing operations
 type Service interface {
 	GetBeers() []beers.Beer
 	GetBeer(int) (beers.Beer, error)
