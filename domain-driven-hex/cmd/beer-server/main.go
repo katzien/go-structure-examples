@@ -5,12 +5,12 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/katzien/go-structure-examples/domain-driven-hex/http/rest"
+	"github.com/katzien/go-structure-examples/domain-driven-hex/pkg/http/rest"
 	"github.com/katzien/go-structure-examples/domain-driven-hex/pkg/listing"
 	"github.com/katzien/go-structure-examples/domain-driven-hex/pkg/adding"
 	"github.com/katzien/go-structure-examples/domain-driven-hex/pkg/reviewing"
-	"github.com/katzien/go-structure-examples/domain-driven-hex/storage/memory"
-	"github.com/katzien/go-structure-examples/domain-driven-hex/storage/json"
+	"github.com/katzien/go-structure-examples/domain-driven-hex/pkg/storage/memory"
+	"github.com/katzien/go-structure-examples/domain-driven-hex/pkg/storage/json"
 )
 
 // StorageType defines available storage types
