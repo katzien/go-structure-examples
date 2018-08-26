@@ -13,7 +13,7 @@ type Repository interface {
 	AddReview(Review) error
 }
 
-// Service provides reviewing operations
+// Service provides reviewing operations.
 type Service interface {
 	AddBeerReview(Review)
 	AddSampleReviews()
