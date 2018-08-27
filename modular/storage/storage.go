@@ -3,7 +3,7 @@ package storage
 import "github.com/katzien/go-structure-examples/modular/beers"
 import "github.com/katzien/go-structure-examples/modular/reviews"
 
-// StorageType defines available storage types
+// Type defines available storage types
 type Type int
 
 const (
