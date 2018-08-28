@@ -14,6 +14,7 @@ const ServerAddr = "localhost:8080"
 var db Storage
 var router *httprouter.Router
 
+// note: avoid using init
 func init() {
 	var err error
 
