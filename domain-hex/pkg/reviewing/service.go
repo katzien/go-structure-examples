@@ -16,7 +16,7 @@ type Repository interface {
 // Service provides reviewing operations.
 type Service interface {
 	AddBeerReview(Review)
-	AddSampleReviews()
+	AddSampleReviews([]Review)
 }
 
 type service struct {
@@ -34,8 +34,8 @@ func (s *service) AddBeerReview(r Review) {
 }
 
 // AddSampleReviews adds some sample reviews to the database
-func (s *service) AddSampleReviews() {
-	for _, b := range DefaultReviews {
-		_ = s.rR.AddReview(b) // error handling omitted for simplicity
+func (s *service) AddSampleReviews(r []Review) {
+	for _, rr := range r {
+		_ = s.rR.AddReview(rr) // error handling omitted for simplicity
 	}
 }

@@ -10,7 +10,7 @@ var ErrDuplicate = errors.New("beer already exists")
 // Service provides beer adding operations.
 type Service interface {
 	AddBeer(...Beer)
-	AddSampleBeers()
+	AddSampleBeers([]Beer)
 }
 
 // Repository provides access to beer repository.
@@ -39,11 +39,11 @@ func (s *service) AddBeer(b ...Beer) {
 }
 
 // AddSampleBeers adds some sample beers to the database
-func (s *service) AddSampleBeers() {
+func (s *service) AddSampleBeers(b []Beer) {
 
 	// any validation can be done here
 
-	for _, b := range DefaultBeers {
-		_ = s.bR.AddBeer(b) // error handling omitted for simplicity
+	for _, bb := range b {
+		_ = s.bR.AddBeer(bb) // error handling omitted for simplicity
 	}
 }

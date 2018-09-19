@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/katzien/go-structure-examples/domain-hex/storage/json"
 	"github.com/katzien/go-structure-examples/domain-hex/pkg/adding"
 	"github.com/katzien/go-structure-examples/domain-hex/pkg/reviewing"
+	"github.com/katzien/go-structure-examples/domain-hex/pkg/storage/json"
 )
 
 func main() {
@@ -19,8 +19,8 @@ func main() {
 	reviewer = reviewing.NewService(s)
 
 	// add some sample data
-	adder.AddSampleBeers()
-	reviewer.AddSampleReviews()
+	adder.AddSampleBeers(DefaultBeers)
+	reviewer.AddSampleReviews(DefaultReviews)
 
 	fmt.Println("Finished adding sample data.")
 }

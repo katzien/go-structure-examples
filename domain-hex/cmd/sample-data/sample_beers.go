@@ -1,6 +1,8 @@
-package adding
+package main
 
-var DefaultBeers = []Beer{
+import "github.com/katzien/go-structure-examples/domain-hex/pkg/adding"
+
+var DefaultBeers = []adding.Beer{
 	{
 		Name:    "Pliny the Elder",
 		Brewery: "Russian River Brewing Company",
