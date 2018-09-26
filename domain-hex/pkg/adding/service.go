@@ -4,7 +4,7 @@ import (
 	"errors"
 )
 
-// ErrUnknown is used when a beer could not be found.
+// ErrDuplicate is used when a beer already exists.
 var ErrDuplicate = errors.New("beer already exists")
 
 // Service provides beer adding operations.
