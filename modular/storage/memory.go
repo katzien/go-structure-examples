@@ -1,10 +1,11 @@
 package storage
 
 import (
+	"fmt"
+	"time"
+
 	"github.com/katzien/go-structure-examples/modular/beers"
 	"github.com/katzien/go-structure-examples/modular/reviews"
-	"time"
-	"fmt"
 )
 
 // Memory data storage layered save only in memory

@@ -3,12 +3,12 @@ package storage
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/nanobox-io/golang-scribble"
 	"strconv"
+	"time"
+
 	"github.com/katzien/go-structure-examples/domain/beers"
 	"github.com/katzien/go-structure-examples/domain/reviews"
-	"time"
+	"github.com/nanobox-io/golang-scribble"
 )
 
 const (

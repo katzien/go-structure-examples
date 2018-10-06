@@ -6,9 +6,9 @@ import (
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
-	"github.com/katzien/go-structure-examples/modular/storage"
 	"github.com/katzien/go-structure-examples/modular/beers"
 	"github.com/katzien/go-structure-examples/modular/reviews"
+	"github.com/katzien/go-structure-examples/modular/storage"
 )
 
 var router *httprouter.Router

@@ -4,11 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"strconv"
+	"time"
 
-	"github.com/nanobox-io/golang-scribble"
 	"github.com/katzien/go-structure-examples/modular/beers"
 	"github.com/katzien/go-structure-examples/modular/reviews"
-	"time"
+	"github.com/nanobox-io/golang-scribble"
 )
 
 const (

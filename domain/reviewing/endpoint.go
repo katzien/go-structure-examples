@@ -1,11 +1,12 @@
 package reviewing
 
 import (
-	"github.com/julienschmidt/httprouter"
-	"net/http"
 	"encoding/json"
-	"strconv"
 	"fmt"
+	"net/http"
+	"strconv"
+
+	"github.com/julienschmidt/httprouter"
 	"github.com/katzien/go-structure-examples/domain/reviews"
 )
 
