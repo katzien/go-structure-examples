@@ -1,8 +1,8 @@
 package beers
 
 import (
-	"time"
 	"errors"
+	"time"
 )
 
 // Beer defines the properties of a reviewable beer

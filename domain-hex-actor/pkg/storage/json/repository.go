@@ -4,14 +4,14 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/katzien/go-structure-examples/domain-hex-actor/pkg/adding"
+	"github.com/katzien/go-structure-examples/domain-hex-actor/pkg/listing"
+	"github.com/katzien/go-structure-examples/domain-hex-actor/pkg/reviewing"
 	"github.com/nanobox-io/golang-scribble"
+	"path"
+	"runtime"
 	"strconv"
 	"time"
-	"github.com/katzien/go-structure-examples/domain-hex-actor/pkg/adding"
-	"github.com/katzien/go-structure-examples/domain-hex-actor/pkg/reviewing"
-	"github.com/katzien/go-structure-examples/domain-hex-actor/pkg/listing"
-	"runtime"
-	"path"
 )
 
 const (
@@ -155,7 +155,7 @@ func (s *Storage) GetAllBeers() []listing.Beer {
 }
 
 // GetAll returns all reviews for a given beer
-func (s *Storage) GetAllReviews(beerID int) ([]listing.Review) {
+func (s *Storage) GetAllReviews(beerID int) []listing.Review {
 	list := []listing.Review{}
 
 	records, err := s.db.ReadAll(CollectionReview)

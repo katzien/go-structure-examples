@@ -1,8 +1,8 @@
 package reviews
 
 import (
-	"time"
 	"errors"
+	"time"
 )
 
 // Review defines a beer review

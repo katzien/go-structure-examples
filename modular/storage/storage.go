@@ -1,7 +1,9 @@
 package storage
 
-import "github.com/katzien/go-structure-examples/modular/beers"
-import "github.com/katzien/go-structure-examples/modular/reviews"
+import (
+	"github.com/katzien/go-structure-examples/modular/beers"
+	"github.com/katzien/go-structure-examples/modular/reviews"
+)
 
 // Type defines available storage types
 type Type int

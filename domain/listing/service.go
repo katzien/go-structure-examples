@@ -1,8 +1,8 @@
 package listing
 
 import (
-	"github.com/katzien/go-structure-examples/domain/reviews"
 	"github.com/katzien/go-structure-examples/domain/beers"
+	"github.com/katzien/go-structure-examples/domain/reviews"
 )
 
 // Service provides beer or review listing operations

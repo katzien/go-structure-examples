@@ -1,8 +1,8 @@
 package main
 
 import (
-	"time"
 	"fmt"
+	"time"
 )
 
 // StorageMemory data storage layered save only in memory
@@ -66,7 +66,7 @@ func (s *StorageMemory) FindBeer(criteria Beer) ([]Beer, error) {
 func (s *StorageMemory) FindReview(criteria Review) ([]Review, error) {
 	var matches []Review
 
-	for _ ,r := range s.reviews {
+	for _, r := range s.reviews {
 		if r.BeerID == criteria.BeerID {
 			matches = append(matches, r)
 		}

@@ -2,8 +2,9 @@ package main
 
 import (
 	"testing"
-	"github.com/stretchr/testify/assert"
 	"time"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestSaveBeer(t *testing.T) {

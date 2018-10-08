@@ -1,9 +1,10 @@
 package adding
 
 import (
-	"github.com/julienschmidt/httprouter"
-	"net/http"
 	"encoding/json"
+	"net/http"
+
+	"github.com/julienschmidt/httprouter"
 	"github.com/katzien/go-structure-examples/domain/beers"
 )
 

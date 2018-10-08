@@ -47,7 +47,7 @@ func GetBeer(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 func GetBeerReviews(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ID, err := strconv.Atoi(ps.ByName("id"))
 	if err != nil {
-		http.Error(w, fmt.Sprintf("%s is not a valid beer ID, it must be a numberb", ps.ByName("id")), http.StatusBadRequest)
+		http.Error(w, fmt.Sprintf("%s is not a valid beer ID, it must be a number", ps.ByName("id")), http.StatusBadRequest)
 		return
 	}
 
@@ -70,7 +70,7 @@ func AddBeer(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	var newBeer Beer
 	err := decoder.Decode(&newBeer)
 	if err != nil {
-		http.Error(w, "error while parsing new beer data: " + err.Error(), http.StatusBadRequest)
+		http.Error(w, "error while parsing new beer data: "+err.Error(), http.StatusBadRequest)
 		return
 	}
 
@@ -96,7 +96,7 @@ func AddBeerReview(w http.ResponseWriter, r *http.Request, ps httprouter.Params)
 	var newReview Review
 	decoder := json.NewDecoder(r.Body)
 	if err := decoder.Decode(&newReview); err != nil {
-		http.Error(w, "error while parsing new review data: " + err.Error(), http.StatusBadRequest)
+		http.Error(w, "error while parsing new review data: "+err.Error(), http.StatusBadRequest)
 		return
 	}
 

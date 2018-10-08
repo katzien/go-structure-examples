@@ -1,10 +1,11 @@
 package memory
 
 import (
-	"time"
 	"fmt"
-	"github.com/katzien/go-structure-examples/domain-hex/pkg/listing"
+	"time"
+
 	"github.com/katzien/go-structure-examples/domain-hex/pkg/adding"
+	"github.com/katzien/go-structure-examples/domain-hex/pkg/listing"
 	"github.com/katzien/go-structure-examples/domain-hex/pkg/reviewing"
 )
 
@@ -96,12 +97,12 @@ func (m *Storage) GetAllBeers() []listing.Beer {
 	for i := range m.beers {
 
 		beer := listing.Beer{
-			ID: m.beers[i].ID,
-			Name: m.beers[i].Name,
-			Brewery: m.beers[i].Brewery,
-			Abv: m.beers[i].Abv,
+			ID:        m.beers[i].ID,
+			Name:      m.beers[i].Name,
+			Brewery:   m.beers[i].Brewery,
+			Abv:       m.beers[i].Abv,
 			ShortDesc: m.beers[i].ShortDesc,
-			Created: m.beers[i].Created,
+			Created:   m.beers[i].Created,
 		}
 
 		beers = append(beers, beer)
@@ -111,19 +112,19 @@ func (m *Storage) GetAllBeers() []listing.Beer {
 }
 
 // GetAll returns all reviews for a given beer
-func (m *Storage) GetAllReviews(beerID int) ([]listing.Review) {
+func (m *Storage) GetAllReviews(beerID int) []listing.Review {
 	var list []listing.Review
 
 	for i := range m.reviews {
 		if m.reviews[i].BeerID == beerID {
 			r := listing.Review{
-				ID: m.reviews[i].ID,
-				BeerID: m.reviews[i].BeerID,
+				ID:        m.reviews[i].ID,
+				BeerID:    m.reviews[i].BeerID,
 				FirstName: m.reviews[i].FirstName,
-				LastName: m.reviews[i].LastName,
-				Score: m.reviews[i].Score,
-				Text: m.reviews[i].Text,
-				Created: m.reviews[i].Created,
+				LastName:  m.reviews[i].LastName,
+				Score:     m.reviews[i].Score,
+				Text:      m.reviews[i].Text,
+				Created:   m.reviews[i].Created,
 			}
 
 			list = append(list, r)

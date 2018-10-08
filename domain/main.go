@@ -6,12 +6,12 @@ import (
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
+	"github.com/katzien/go-structure-examples/domain/adding"
 	"github.com/katzien/go-structure-examples/domain/beers"
+	"github.com/katzien/go-structure-examples/domain/listing"
+	"github.com/katzien/go-structure-examples/domain/reviewing"
 	"github.com/katzien/go-structure-examples/domain/reviews"
 	"github.com/katzien/go-structure-examples/domain/storage"
-	"github.com/katzien/go-structure-examples/domain/adding"
-	"github.com/katzien/go-structure-examples/domain/reviewing"
-	"github.com/katzien/go-structure-examples/domain/listing"
 )
 
 func main() {
@@ -28,8 +28,8 @@ func main() {
 		reviewsStorage = new(storage.MemoryReviewStorage)
 	case storage.JSONFiles:
 		// error handling omitted for simplicity
-		beersStorage, _ = storage.NewJSONBeerStorage();
-		reviewsStorage, _ = storage.NewJSONReviewStorage();
+		beersStorage, _ = storage.NewJSONBeerStorage()
+		reviewsStorage, _ = storage.NewJSONReviewStorage()
 	}
 
 	// create the available services

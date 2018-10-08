@@ -2,6 +2,7 @@ package main
 
 import (
 	"time"
+
 	"github.com/katzien/go-structure-examples/layered/models"
 )
 

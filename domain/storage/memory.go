@@ -1,10 +1,11 @@
 package storage
 
 import (
+	"fmt"
+	"time"
+
 	"github.com/katzien/go-structure-examples/domain/beers"
 	"github.com/katzien/go-structure-examples/domain/reviews"
-	"time"
-	"fmt"
 )
 
 // Memory storage keeps beer data in memory

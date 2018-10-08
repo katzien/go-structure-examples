@@ -1,13 +1,14 @@
 package rest
 
 import (
-	"net/http"
-	"github.com/julienschmidt/httprouter"
 	"encoding/json"
-	"strconv"
 	"fmt"
-	"github.com/katzien/go-structure-examples/domain-hex/pkg/listing"
+	"net/http"
+	"strconv"
+
+	"github.com/julienschmidt/httprouter"
 	"github.com/katzien/go-structure-examples/domain-hex/pkg/adding"
+	"github.com/katzien/go-structure-examples/domain-hex/pkg/listing"
 	"github.com/katzien/go-structure-examples/domain-hex/pkg/reviewing"
 )
 

@@ -1,11 +1,12 @@
 package main
 
 import (
+	"fmt"
+	"time"
+
 	"github.com/katzien/go-structure-examples/domain-hex-actor/pkg/adding"
 	"github.com/katzien/go-structure-examples/domain-hex-actor/pkg/reviewing"
 	"github.com/katzien/go-structure-examples/domain-hex-actor/pkg/storage/json"
-	"fmt"
-	"time"
 )
 
 type Message interface{}
@@ -16,19 +17,19 @@ func main() {
 	s, _ := json.NewStorage()
 
 	// create the available services
-	adder := adding.NewService(s) // adding "actor"
+	adder := adding.NewService(s)       // adding "actor"
 	reviewer := reviewing.NewService(s) // reviewing "actor"
 
 	resultsBeer := adder.AddSampleBeers(adding.DefaultBeers)
 	resultsReview := reviewer.AddSampleReviews(reviewing.DefaultReviews)
 
-	go func(){
+	go func() {
 		for result := range resultsBeer {
 			fmt.Printf("Added sample beer with result %s.\n", result.GetMeaning()) // human-friendly
 		}
 	}()
 
-	go func(){
+	go func() {
 		for result := range resultsReview {
 			fmt.Printf("Added sample review with result %d.\n", result) // machine-friendly
 		}
