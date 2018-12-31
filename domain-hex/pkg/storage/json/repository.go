@@ -124,7 +124,7 @@ func (s *Storage) GetBeer(id int) (listing.Beer, error) {
 
 // GetAll returns all beers
 func (s *Storage) GetAllBeers() []listing.Beer {
-	list := []listing.Beer{}
+	var list []listing.Beer
 
 	records, err := s.db.ReadAll(CollectionBeer)
 	if err != nil {
@@ -156,7 +156,7 @@ func (s *Storage) GetAllBeers() []listing.Beer {
 
 // GetAll returns all reviews for a given beer
 func (s *Storage) GetAllReviews(beerID int) []listing.Review {
-	list := []listing.Review{}
+	var list []listing.Review
 
 	records, err := s.db.ReadAll(CollectionReview)
 	if err != nil {
