@@ -27,11 +27,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:e0e59ac15e8e22f55bb16e160fba91e25fb265a658939c5af4e1fb9d1182611f"
+  digest = "1:7d09b5edb5c302f1db09b45807473a943e9d41c944fea5f1e0007192183017ae"
   name = "github.com/nanobox-io/golang-scribble"
   packages = ["."]
   pruneopts = ""
-  revision = "336beac0a992ed9abaf4ef8e7042ba7fe3335c06"
+  revision = "aa3e7c118975babb5ab3bc2a221b9d5a420b625b"
 
 [[projects]]
   digest = "1:7365acd48986e205ccb8652cc746f09c8b7876030d53710ea6ef7d0bd0dcd7ca"
