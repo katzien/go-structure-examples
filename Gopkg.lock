@@ -18,12 +18,12 @@
   revision = "dd349441af25132d146d7095c6693a15431fc9b1"
 
 [[projects]]
-  digest = "1:deeb6536ebbcb66ab11213ecfaac9daadfcd004dd057446a4980ffd6c15c36e2"
+  digest = "1:4659313061ea46d02b76c94aeb0c11d9973cc45761eccbd50ed70f28e6d43f8f"
   name = "github.com/julienschmidt/httprouter"
   packages = ["."]
   pruneopts = ""
-  revision = "348b672cd90d8190f8240323e372ecd1e66b59dc"
-  version = "v1.2.0"
+  revision = "4eec211fa4e8df74ed978dc5681612131854144f"
+  version = "v1.3.0"
 
 [[projects]]
   branch = "master"
