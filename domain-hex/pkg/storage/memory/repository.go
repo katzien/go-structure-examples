@@ -111,7 +111,7 @@ func (m *Storage) GetAllBeers() []listing.Beer {
 	return beers
 }
 
-// GetAll returns all reviews for a given beer
+// GetAllReviews returns all reviews for a given beer
 func (m *Storage) GetAllReviews(beerID int) []listing.Review {
 	var list []listing.Review
 
