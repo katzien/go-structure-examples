@@ -37,7 +37,8 @@ func addBeer(s adding.Service) func(w http.ResponseWriter, r *http.Request, _ ht
 			return
 		}
 
-		s.AddBeer(newBeer)
+		_ := s.AddBeer(newBeer)
+		// error handling omitted for simplicity
 
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode("New beer added.")

@@ -3,9 +3,10 @@ package json
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/katzien/go-structure-examples/domain-hex/pkg/storage"
+	"log"
 	"path"
 	"runtime"
-	"strconv"
 	"time"
 
 	"github.com/katzien/go-structure-examples/domain-hex/pkg/adding"
@@ -48,18 +49,13 @@ func NewStorage() (*Storage, error) {
 
 // AddBeer saves the given beer to the repository
 func (s *Storage) AddBeer(b adding.Beer) error {
-
-	existingBeers := s.GetAllBeers()
-	for _, e := range existingBeers {
-		if b.Abv == e.Abv &&
-			b.Brewery == e.Brewery &&
-			b.Name == e.Name {
-			return adding.ErrDuplicate
-		}
+	id, err := storage.GetID("beer")
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	newB := Beer{
-		ID:        len(existingBeers) + 1,
+		ID:        id,
 		Created:   time.Now(),
 		Name:      b.Name,
 		Brewery:   b.Brewery,
@@ -67,8 +63,7 @@ func (s *Storage) AddBeer(b adding.Beer) error {
 		ShortDesc: b.ShortDesc,
 	}
 
-	resource := strconv.Itoa(newB.ID)
-	if err := s.db.Write(CollectionBeer, resource, newB); err != nil {
+	if err := s.db.Write(CollectionBeer, newB.ID, newB); err != nil {
 		return err
 	}
 	return nil
@@ -78,7 +73,7 @@ func (s *Storage) AddBeer(b adding.Beer) error {
 func (s *Storage) AddReview(r reviewing.Review) error {
 
 	var beer Beer
-	if err := s.db.Read(CollectionBeer, strconv.Itoa(r.BeerID), &beer); err != nil {
+	if err := s.db.Read(CollectionBeer, r.BeerID, &beer); err != nil {
 		return listing.ErrNotFound
 	}
 
@@ -101,13 +96,11 @@ func (s *Storage) AddReview(r reviewing.Review) error {
 }
 
 // Get returns a beer with the specified ID
-func (s *Storage) GetBeer(id int) (listing.Beer, error) {
+func (s *Storage) GetBeer(id string) (listing.Beer, error) {
 	var b Beer
 	var beer listing.Beer
 
-	var resource = strconv.Itoa(id)
-
-	if err := s.db.Read(CollectionBeer, resource, &b); err != nil {
+	if err := s.db.Read(CollectionBeer, id, &b); err != nil {
 		// err handling omitted for simplicity
 		return beer, listing.ErrNotFound
 	}
@@ -155,7 +148,7 @@ func (s *Storage) GetAllBeers() []listing.Beer {
 }
 
 // GetAll returns all reviews for a given beer
-func (s *Storage) GetAllReviews(beerID int) []listing.Review {
+func (s *Storage) GetAllReviews(beerID string) []listing.Review {
 	list := []listing.Review{}
 
 	records, err := s.db.ReadAll(CollectionReview)
