@@ -4,9 +4,9 @@ import (
 	"time"
 )
 
-// Beer defines the properties of a beer to be listed
+// Beer defines the storage form of a beer
 type Beer struct {
-	ID        int
+	ID        string
 	Name      string
 	Brewery   string
 	Abv       float32
