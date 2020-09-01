@@ -37,7 +37,7 @@ func addBeer(s adding.Service) func(w http.ResponseWriter, r *http.Request, _ ht
 			return
 		}
 
-		_ := s.AddBeer(newBeer)
+		s.AddBeer(newBeer)
 		// error handling omitted for simplicity
 
 		w.Header().Set("Content-Type", "application/json")
@@ -48,7 +48,7 @@ func addBeer(s adding.Service) func(w http.ResponseWriter, r *http.Request, _ ht
 // addBeerReview returns a handler for POST /beers/:id/reviews requests
 func addBeerReview(s reviewing.Service) func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-		ID, err := strconv.Atoi(p.ByName("id"))
+		_, err := strconv.Atoi(p.ByName("id"))
 		if err != nil {
 			http.Error(w, fmt.Sprintf("%s is not a valid Beer ID, it must be a number.", p.ByName("id")), http.StatusBadRequest)
 			return
@@ -61,7 +61,7 @@ func addBeerReview(s reviewing.Service) func(w http.ResponseWriter, r *http.Requ
 			http.Error(w, "Failed to parse review", http.StatusBadRequest)
 		}
 
-		newReview.BeerID = ID
+		newReview.BeerID = p.ByName("id")
 
 		s.AddBeerReview(newReview)
 
@@ -82,13 +82,13 @@ func getBeers(s listing.Service) func(w http.ResponseWriter, r *http.Request, _ 
 // getBeer returns a handler for GET /beers/:id requests
 func getBeer(s listing.Service) func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-		ID, err := strconv.Atoi(p.ByName("id"))
+		_, err := strconv.Atoi(p.ByName("id"))
 		if err != nil {
 			http.Error(w, fmt.Sprintf("%s is not a valid beer ID, it must be a number.", p.ByName("id")), http.StatusBadRequest)
 			return
 		}
 
-		beer, err := s.GetBeer(ID)
+		beer, err := s.GetBeer(p.ByName("id"))
 		if err == listing.ErrNotFound {
 			http.Error(w, "The beer you requested does not exist.", http.StatusNotFound)
 			return
@@ -102,13 +102,13 @@ func getBeer(s listing.Service) func(w http.ResponseWriter, r *http.Request, p h
 // getBeerReviews returns a handler for GET /beers/:id/reviews requests
 func getBeerReviews(s listing.Service) func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-		ID, err := strconv.Atoi(p.ByName("id"))
+		_, err := strconv.Atoi(p.ByName("id"))
 		if err != nil {
 			http.Error(w, fmt.Sprintf("%s is not a valid beer ID, it must be a number.", p.ByName("id")), http.StatusBadRequest)
 			return
 		}
 
-		reviews := s.GetBeerReviews(ID)
+		reviews := s.GetBeerReviews(p.ByName("id"))
 
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(reviews)
