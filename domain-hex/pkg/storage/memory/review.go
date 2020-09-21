@@ -4,10 +4,10 @@ import (
 	"time"
 )
 
-// Review defines a beer review
+// Review defines the storage form of a beer review
 type Review struct {
 	ID        string
-	BeerID    int
+	BeerID    string
 	FirstName string
 	LastName  string
 	Score     int

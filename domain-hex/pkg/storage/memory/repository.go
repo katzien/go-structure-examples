@@ -2,6 +2,8 @@ package memory
 
 import (
 	"fmt"
+	"github.com/katzien/go-structure-examples/domain-hex/pkg/storage"
+	"log"
 	"time"
 
 	"github.com/katzien/go-structure-examples/domain-hex/pkg/adding"
@@ -17,16 +19,13 @@ type Storage struct {
 
 // Add saves the given beer to the repository
 func (m *Storage) AddBeer(b adding.Beer) error {
-	for _, e := range m.beers {
-		if b.Abv == e.Abv &&
-			b.Brewery == e.Brewery &&
-			b.Name == e.Name {
-			return adding.ErrDuplicate
-		}
+	id, err := storage.GetID("beer")
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	newB := Beer{
-		ID:        len(m.beers) + 1,
+		ID:        id,
 		Created:   time.Now(),
 		Name:      b.Name,
 		Brewery:   b.Brewery,
@@ -70,7 +69,7 @@ func (m *Storage) AddReview(r reviewing.Review) error {
 }
 
 // Get returns a beer with the specified ID
-func (m *Storage) GetBeer(id int) (listing.Beer, error) {
+func (m *Storage) GetBeer(id string) (listing.Beer, error) {
 	var beer listing.Beer
 
 	for i := range m.beers {
@@ -112,7 +111,7 @@ func (m *Storage) GetAllBeers() []listing.Beer {
 }
 
 // GetAllReviews returns all reviews for a given beer
-func (m *Storage) GetAllReviews(beerID int) []listing.Review {
+func (m *Storage) GetAllReviews(beerID string) []listing.Review {
 	var list []listing.Review
 
 	for i := range m.reviews {

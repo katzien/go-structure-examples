@@ -10,18 +10,18 @@ var ErrNotFound = errors.New("beer not found")
 // Repository provides access to the beer and review storage.
 type Repository interface {
 	// GetBeer returns the beer with given ID.
-	GetBeer(int) (Beer, error)
+	GetBeer(string) (Beer, error)
 	// GetAllBeers returns all beers saved in storage.
 	GetAllBeers() []Beer
 	// GetAllReviews returns a list of all reviews for a given beer ID.
-	GetAllReviews(int) []Review
+	GetAllReviews(string) []Review
 }
 
 // Service provides beer and review listing operations.
 type Service interface {
-	GetBeer(int) (Beer, error)
+	GetBeer(string) (Beer, error)
 	GetBeers() []Beer
-	GetBeerReviews(int) []Review
+	GetBeerReviews(string) []Review
 }
 
 type service struct {
@@ -39,11 +39,11 @@ func (s *service) GetBeers() []Beer {
 }
 
 // GetBeer returns a beer
-func (s *service) GetBeer(id int) (Beer, error) {
+func (s *service) GetBeer(id string) (Beer, error) {
 	return s.r.GetBeer(id)
 }
 
 // GetBeerReviews returns all requests for a beer
-func (s *service) GetBeerReviews(beerID int) []Review {
+func (s *service) GetBeerReviews(beerID string) []Review {
 	return s.r.GetAllReviews(beerID)
 }

@@ -6,7 +6,7 @@ import (
 
 // Beer defines the properties of a beer to be listed
 type Beer struct {
-	ID        int       `json:"id"`
+	ID        string    `json:"id"`
 	Name      string    `json:"name"`
 	Brewery   string    `json:"brewery"`
 	Abv       float32   `json:"abv"`
