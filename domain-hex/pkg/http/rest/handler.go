@@ -48,12 +48,6 @@ func addBeer(s adding.Service) func(w http.ResponseWriter, r *http.Request, _ ht
 // addBeerReview returns a handler for POST /beers/:id/reviews requests
 func addBeerReview(s reviewing.Service) func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-		_, err := strconv.Atoi(p.ByName("id"))
-		if err != nil {
-			http.Error(w, fmt.Sprintf("%s is not a valid Beer ID, it must be a number.", p.ByName("id")), http.StatusBadRequest)
-			return
-		}
-
 		var newReview reviewing.Review
 		decoder := json.NewDecoder(r.Body)
 
