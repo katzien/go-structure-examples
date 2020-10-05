@@ -2,7 +2,6 @@ package adding
 
 import (
 	"errors"
-	"github.com/katzien/go-structure-examples/domain-hex-actor/pkg/adding"
 	"github.com/katzien/go-structure-examples/domain-hex/pkg/listing"
 )
 
@@ -41,7 +40,7 @@ func (s *service) AddBeer(b ...Beer) error {
 			if bb.Abv == e.Abv &&
 				bb.Brewery == e.Brewery &&
 				bb.Name == e.Name {
-				return adding.ErrDuplicate
+				return ErrDuplicate
 			}
 		}
 	}
