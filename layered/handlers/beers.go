@@ -8,12 +8,13 @@ import (
 
 	"github.com/julienschmidt/httprouter"
 	"github.com/katzien/go-structure-examples/layered/models"
+	"github.com/katzien/go-structure-examples/layered/storage"
 )
 
 // GetBeers returns the cellar
 func GetBeers(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	w.Header().Set("Content-Type", "application/json")
-	cellar := models.DB.FindBeers()
+	cellar := storage.DB.FindBeers()
 	json.NewEncoder(w).Encode(cellar)
 }
 
@@ -25,7 +26,7 @@ func GetBeer(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 		return
 	}
 
-	cellar, _ := models.DB.FindBeer(models.Beer{ID: ID})
+	cellar, _ := storage.DB.FindBeer(models.Beer{ID: ID})
 	if len(cellar) == 1 {
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(cellar[0])
@@ -46,7 +47,7 @@ func AddBeer(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		return
 	}
 
-	models.DB.SaveBeer(newBeer)
+	storage.DB.SaveBeer(newBeer)
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode("New beer added.")
 }

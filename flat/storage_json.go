@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/nanobox-io/golang-scribble"
+	scribble "github.com/nanobox-io/golang-scribble"
 	"github.com/pkg/errors"
 )
 
@@ -22,6 +22,7 @@ type StorageJSON struct {
 	db *scribble.Driver
 }
 
+// NewStorageJSON returns a storage handle to file system for storing JSON format
 func NewStorageJSON(location string) (*StorageJSON, error) {
 	var err error
 
@@ -62,7 +63,7 @@ func (s *StorageJSON) SaveBeer(beers ...Beer) error {
 	return nil
 }
 
-// SaveBeer saves a new review.
+// SaveReview saves a new review.
 func (s *StorageJSON) SaveReview(reviews ...Review) error {
 	for _, review := range reviews {
 

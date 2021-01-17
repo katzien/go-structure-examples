@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/katzien/go-structure-examples/layered/models"
+	"github.com/katzien/go-structure-examples/layered/storage"
 )
 
 // PopulateBeers populates the Cellar variable with Beers
@@ -119,7 +120,7 @@ func PopulateBeers() {
 			Created: time.Date(2017, time.October, 28, 15, 14, 0, 0, time.UTC),
 		},
 	}
-	models.DB.SaveBeer(defaultBeers...)
+	storage.DB.SaveBeer(defaultBeers...)
 }
 
 // PopulateReviews populates the Reviews variable with Reviews
@@ -132,5 +133,5 @@ func PopulateReviews() {
 		models.Review{ID: 5, BeerID: 1, FirstName: "Monica", LastName: "Geller", Score: 5, Text: "AMAZING! Like Chandler's jokes!", Created: time.Date(2017, time.October, 22, 13, 41, 0, 0, time.UTC)},
 		models.Review{ID: 6, BeerID: 2, FirstName: "Rachel", LastName: "Green", Score: 5, Text: "So yummy, just like my beef and custard trifle.", Created: time.Date(2017, time.October, 17, 9, 12, 0, 0, time.UTC)},
 	}
-	models.DB.SaveReview(defaultReviews...)
+	storage.DB.SaveReview(defaultReviews...)
 }

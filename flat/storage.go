@@ -22,6 +22,7 @@ type Storage interface {
 	FindBeers() ([]Beer, error)
 }
 
+// NewStorage Takes a type of storage and returns the implementation
 func NewStorage(storageType StorageType) (Storage, error) {
 	var stg Storage
 	var err error
