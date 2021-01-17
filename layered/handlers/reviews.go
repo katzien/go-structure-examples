@@ -8,6 +8,7 @@ import (
 
 	"github.com/julienschmidt/httprouter"
 	"github.com/katzien/go-structure-examples/layered/models"
+	"github.com/katzien/go-structure-examples/layered/storage"
 )
 
 // GetBeerReviews returns all reviews for a beer
@@ -21,7 +22,7 @@ func GetBeerReviews(w http.ResponseWriter, r *http.Request, ps httprouter.Params
 	// TODO: Consider checking if a beer matching the ID actually exists, and
 	// 404 if that is not the case.
 
-	results, _ := models.DB.FindReview(models.Review{BeerID: ID})
+	results, _ := storage.DB.FindReview(models.Review{BeerID: ID})
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(results)
 }
@@ -42,7 +43,7 @@ func AddBeerReview(w http.ResponseWriter, r *http.Request, ps httprouter.Params)
 	}
 
 	newReview.BeerID = ID
-	if err := models.DB.SaveReview(newReview); err != nil {
+	if err := storage.DB.SaveReview(newReview); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 	}
 	w.Header().Set("Content-Type", "application/json")

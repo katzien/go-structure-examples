@@ -7,7 +7,7 @@ import (
 
 	"github.com/julienschmidt/httprouter"
 	"github.com/katzien/go-structure-examples/layered/handlers"
-	"github.com/katzien/go-structure-examples/layered/models"
+	"github.com/katzien/go-structure-examples/layered/storage"
 )
 
 var router *httprouter.Router
@@ -15,7 +15,7 @@ var router *httprouter.Router
 func init() {
 	var err error
 
-	err = models.NewStorage(models.Memory)
+	err = storage.NewStorage(storage.MemoryType)
 	if err != nil {
 		log.Fatal(err)
 	}
